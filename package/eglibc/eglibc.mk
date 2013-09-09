@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-EGLIBC_VERSION = 2.17-svnr22064
+EGLIBC_VERSION = 2.18-svnr23787
 EGLIBC_SITE = http://downloads.yoctoproject.org/releases/eglibc/
 EGLIBC_SOURCE = eglibc-$(EGLIBC_VERSION).tar.bz2
 EGLIBC_LICENSE = GPLv2+ (programs), LGPLv2.1+, BSD-3c, MIT (library)
