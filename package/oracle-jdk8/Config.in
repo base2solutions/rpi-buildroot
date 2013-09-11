@@ -1,0 +1,8 @@
+config BR2_PACKAGE_ORACLE_JDK8
+	bool "Oracle JDK 8"
+	depends on BR2_TOOLCHAIN_BUILDROOT_EGLIBC
+	depends on BR2_arm
+	help
+	  Oracle JDK 8.
+
+	  http://jdk8.java.net/
