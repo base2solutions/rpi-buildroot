@@ -1,0 +1,7 @@
+config BR2_PACKAGE_JETTY
+	bool "jetty"
+	select BR2_PACKAGE_ORACLE_JDK8
+	help
+	  Jetty servlet container.
+
+	  http://www.eclipse.org/jetty/

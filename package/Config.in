@@ -932,5 +932,6 @@ endmenu
 # Raspberry Pi specific
 source "package/raspberrypi/Config.in"
 source "package/oracle-jdk8/Config.in"
+source "package/jetty/Config.in"
 
 endmenu
