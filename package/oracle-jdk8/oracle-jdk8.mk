@@ -19,13 +19,13 @@ BR2_WGET="wget --passive-ftp -nd --no-cookies --header \"Cookie: gpw_e24=http%3A
 define ORACLE_JDK8_INSTALL_STAGING_CMDS
 	mkdir -p $(STAGING_DIR)/usr/java/jdk1.8.0
 	cp -R $(@D)/* $(STAGING_DIR)/usr/java/jdk1.8.0
-	ln -s $(STAGING_DIR)/usr/java/jdk1.8.0 $(STAGING_DIR)/usr/java/default
+	ln -s /usr/java/jdk1.8.0 $(STAGING_DIR)/usr/java/default
 endef
 
 define ORACLE_JDK8_INSTALL_TARGET_CMDS
 	mkdir -p $(TARGET_DIR)/usr/java/jdk1.8.0
 	cp -R $(@D)/* $(TARGET_DIR)/usr/java/jdk1.8.0
-	ln -s $(TARGET_DIR)/usr/java/jdk1.8.0 $(TARGET_DIR)/usr/java/default
+	ln -s /usr/java/jdk1.8.0 $(TARGET_DIR)/usr/java/default
 endef
 
 $(eval $(generic-package))
