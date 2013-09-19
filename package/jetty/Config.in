@@ -1,6 +1,7 @@
 config BR2_PACKAGE_JETTY
 	bool "jetty"
 	select BR2_PACKAGE_ORACLE_JDK8
+  select BR2_PACKAGE_BASH
 	help
 	  Jetty servlet container.
 

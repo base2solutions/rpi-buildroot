@@ -933,5 +933,6 @@ endmenu
 source "package/raspberrypi/Config.in"
 source "package/oracle-jdk8/Config.in"
 source "package/jetty/Config.in"
+source "package/obd2/Config.in"
 
 endmenu
