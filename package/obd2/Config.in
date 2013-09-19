@@ -1,0 +1,7 @@
+config BR2_PACKAGE_OBD2
+	bool "obd2"
+	select BR2_PACKAGE_JETTY
+	help
+	  OBD2 in-car service.
+
+	  http://github.com/base2solutions/obd2-in-car-service
