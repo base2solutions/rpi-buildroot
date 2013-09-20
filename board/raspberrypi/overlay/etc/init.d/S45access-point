@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# dependencies:
+#    bash (to run this script)
+#    util-linux (for getopt)
+#    hostapd
+#    dnsmasq
+#    iptables
+#    iproute2
+#    haveged (optional)
+
+GATEWAY=192.168.12.1
+WIFI_IFACE=wlan0
+INTERNET_IFACE=lo
+
+case "$1" in
+	start)
+    echo -n "Starting access point..."
+    ip link set down dev wlan0
+    ip addr flush wlan0
+    ip link set up dev wlan0
+    ip addr add ${GATEWAY}/24 dev wlan0
+    iptables -t nat -A POSTROUTING -o lo -j MASQUERADE
+    iptables -A FORWARD -i wlan0 -j ACCEPT
+    cat /proc/sys/net/ipv4/ip_forward >/var/run/ip_forward.old
+    echo 1 > /proc/sys/inet/ipv4/ip_forward
+    dnsmasq -C /etc/dnsmasq.conf -x /var/run/dnsmasq.pid
+    hostapd -B -P /var/run/hostapd.pid /etc/hostapd.conf
+    ;;
+	stop)
+    echo -n "Stopping access point..."
+    kill -9 $(cat /var/run/hostapd.pid)
+    kill -9 $(cat /var/run/dnsmasq.pid)
+    iptables -t nat -D POSTROUTING -o lo -j MASQUERADE
+    iptables -D FORWARD -i wlan0 -j ACCEPT
+    cat /var/run/ip_forward.old > /proc/sys/net/ipv4/ip_forward
+    ip link set down dev wlan0
+    ip addr flush wlan0
+    ;;
+  restart|reload)
+    "$0" stop
+    "$0" start
+    ;;
+esac
+
+exit $?
