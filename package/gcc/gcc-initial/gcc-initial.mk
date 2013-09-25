@@ -29,12 +29,23 @@ HOST_GCC_INITIAL_CONF_OPT = \
 	--enable-languages=c \
 	--disable-shared \
 	--without-headers \
+	--disable-threads \
 	--with-newlib \
 	--disable-largefile \
 	--disable-nls \
 	$(call qstrip,$(BR2_EXTRA_GCC_CONFIG_OPTIONS))
 
+HOST_GCC_INITIAL_CONF_ENV = \
+	$(HOST_GCC_COMMON_CONF_ENV)
+
 HOST_GCC_INITIAL_MAKE_OPT = all-gcc
 HOST_GCC_INITIAL_INSTALL_OPT = install-gcc
+
+ifeq ($(BR2_TOOLCHAIN_NEEDS_THREE_STAGE_BUILD),)
+ifeq ($(BR2_GCC_SUPPORTS_FINEGRAINEDMTUNE),y)
+HOST_GCC_INITIAL_MAKE_OPT += all-target-libgcc
+HOST_GCC_INITIAL_INSTALL_OPT += install-target-libgcc
+endif
+endif
 
 $(eval $(host-autotools-package))
